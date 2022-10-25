@@ -41,7 +41,7 @@ BoxMover* box_mover_alloc(){
 
     instance->view_port = view_port_alloc();
     instance->model_mutex = furi_mutex_alloc(FuriMutexTypeNormal);
-    instance->gui = furi_record_open("gui");
+    instance->gui = furi_record_open(RECORD_GUI);
     gui_add_view_port(instance->gui, instance->view_port, GuiLayerFullscreen);
 
     instance->event_queue = furi_message_queue_alloc(8, sizeof(InputEvent));
@@ -55,7 +55,7 @@ BoxMover* box_mover_alloc(){
 void box_mover_free(BoxMover* instance){
     view_port_enabled_set(instance->view_port, false);
     gui_remove_view_port(instance->gui, instance->view_port);
-    furi_record_close("gui");
+    furi_record_close(RECORD_GUI);
     view_port_free(instance->view_port);
 
     furi_message_queue_free(instance->event_queue);
