@@ -99,6 +99,7 @@ int32_t box_mover_app(void* p){
             }
         }
         furi_mutex_release(box_mover->model_mutex);
+        view_port_update(box_mover->view_port);
     }
 
     box_mover_free(box_mover);
