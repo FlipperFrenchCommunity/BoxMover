@@ -65,6 +65,24 @@ compilé:
 ./fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
 ```
 
+#### Flipper Application Package
+[Source](https://github.com/DarkFlippers/unleashed-firmware/blob/dev/documentation/AppsOnSDCard.md)
+
+Pour éviter de recompiler le micro-logiciel et toutes ces **fap**, il est
+possible de cibler de cibler juste son application:
+```bash
+./fbt fap_{APPID}
+```
+exemple pour ce dépôt:
+```bash
+./fbt fap_box_mover
+```
+La commande la plus pratique dans le flux de programmation compile l'application, la téléverse puis l'exécute
+sur le Flipper:
+```bash
+./fbt launch_app APPSRC=applications/box_mover/
+```
+
 ## Crédits
 Je me suis inspiré des exemples suivants:
   * https://flipper.atmanos.com/docs/overview/intro/
