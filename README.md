@@ -1,4 +1,4 @@
-# Flipper Zero - Ma première application
+# Flipper Zero - Box Mover
 ## But
 Apprendre à faire une application pour le FZ (Flipper Zero).
 
