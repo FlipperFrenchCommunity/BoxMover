@@ -58,7 +58,9 @@ void input_callback(InputEvent* input, void* ctx){
 }
 
 /*
- * Fonction pour initialiser le programme.
+ * Fonction pour initialiser le programme. Elle va allouer les différentes ressources 
+ * du programme la plus par du temps dans la structure (BoxMoverState) contenant son 
+ * état.
  */
 BoxMoverState* box_mover_alloc(){
     BoxMoverState* state = malloc(sizeof(BoxMoverState));
@@ -84,7 +86,8 @@ BoxMoverState* box_mover_alloc(){
 }
 
 /*
- * Fonction pour terminer proprement le programme.
+ * Fonction pour terminer proprement le programme. Elle va libérer les ressource
+ * avnt de terminer le programme.
  */
 void box_mover_free(BoxMoverState* state){
     view_port_enabled_set(state->view_port, false);
