@@ -6,12 +6,12 @@
  * License: GNU GENERAL PUBLIC LICENSE v3
  * Description: Programme d'apprentissage pour faire une application pour le
  *              Flipper Zero. Le programme récupère les entrées (boutons) et
- *              déplace un point sur l'affichage. Apprendre à générer un
+ *              déplace un pixel sur l'affichage. Apprendre à générer un
  *              affichage et lire des entrées.
  */
 
 /*
- * En-tête des librairies utilisées
+ * Importation des librairies
  */
 #include <furi.h>
 #include <gui/gui.h>
@@ -20,7 +20,7 @@
 
 
 /*
- * Structure contenant le positionnement XY du points à déplacer.
+ * Structure contenant le positionnement XY du pixel à déplacer.
  */
 typedef struct {
     int x;
@@ -31,11 +31,11 @@ typedef struct {
  * Structure contenant l'état du programme.
  */
 typedef struct {
-    BoxMoverModel* model; // Positionnement du point
-    Gui* gui; // Structure avec l'état de la gestion de l'affichage de l'écran (GUI)
-    ViewPort* view_port; // Structure avec l'état de la vue de l'écran.
+    BoxMoverModel* model; // Positionnement du pixel
+    Gui* gui; // Gestion de l'affichage de l'écran (GUI)
+    ViewPort* view_port; // Etat de la vue de l'écran.
     FuriMessageQueue* event_queue; // Fil d'attente (Queue) pour passer des message
-    FuriMutex* model_mutex; // Verrou (Mutex) pour verouille le fil d'exécution (Thread)
+    FuriMutex* model_mutex; // Verrou (Mutex) pour verouiller le fil d'exécution (Thread)
 } BoxMoverState;
 
 /*
@@ -60,8 +60,7 @@ void input_callback(InputEvent* input, void* ctx){
 
 /*
  * Fonction pour initialiser le programme. Elle va allouer les différentes ressources 
- * du programme la plus par du temps dans la structure (BoxMoverState) contenant son 
- * état.
+ * du programme dans la structure (BoxMoverState) contenant son état.
  */
 BoxMoverState* box_mover_alloc(){
     BoxMoverState* state = malloc(sizeof(BoxMoverState));
@@ -88,7 +87,7 @@ BoxMoverState* box_mover_alloc(){
 
 /*
  * Fonction pour terminer proprement le programme. Elle va libérer les ressource
- * avnt de terminer le programme.
+ * avant de terminer le programme.
  */
 void box_mover_free(BoxMoverState* state){
     view_port_enabled_set(state->view_port, false);
@@ -115,7 +114,7 @@ int32_t box_mover_app(void* p){
     BoxMoverState* box_mover = box_mover_alloc();
 
     /*
-     * Boncle d'événement. Regarde si il y a une entrée.
+     * Boucle d'événement qui recherche si il y a une entrée.
      */
     InputEvent event;
     for(bool processing=true ; processing ; ){
