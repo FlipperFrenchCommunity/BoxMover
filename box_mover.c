@@ -9,6 +9,10 @@
  *              déplace un point sur l'affichage. Apprendre à générer un
  *              affichage et lire des entrées.
  */
+
+/*
+ * En-tête des librairies utilisées
+ */
 #include <furi.h>
 #include <gui/gui.h>
 #include <input/input.h>
@@ -28,17 +32,14 @@ typedef struct {
  */
 typedef struct {
     BoxMoverModel* model; // Positionnement du point
-
-    FuriMessageQueue* event_queue; // Queue pour passer des message
-
-    FuriMutex* model_mutex; // Mutex pour verouille le fil d'exécution (Thread)
-
-    ViewPort* view_port; // Structure avec l'état de la vue de l'écran.
     Gui* gui; // Structure avec l'état de la gestion de l'affichage de l'écran (GUI)
+    ViewPort* view_port; // Structure avec l'état de la vue de l'écran.
+    FuriMessageQueue* event_queue; // Fil d'attente (Queue) pour passer des message
+    FuriMutex* model_mutex; // Verrou (Mutex) pour verouille le fil d'exécution (Thread)
 } BoxMoverState;
 
 /*
- * Rappel de fonction pour desiner l'écran.
+ * Rappel de fonction pour dessiner l'écran.
  */
 void draw_callback(Canvas* canvas, void* ctx){
     BoxMoverState* box_mover = ctx;
@@ -113,6 +114,9 @@ int32_t box_mover_app(void* p){
      */
     BoxMoverState* box_mover = box_mover_alloc();
 
+    /*
+     * Boncle d'événement. Regarde si il y a une entrée.
+     */
     InputEvent event;
     for(bool processing=true ; processing ; ){
         FuriStatus event_status = furi_message_queue_get(box_mover->event_queue,
