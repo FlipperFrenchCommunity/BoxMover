@@ -1,9 +1,10 @@
 # Flipper Zero - Box Mover
 ## But
-Apprendre à faire une application pour le FZ (Flipper Zero).
+Apprendre à faire une application pour le FZ (Flipper Zero). C'est le premier
+dépôt et d'autres viendra par la suite.
 
 ## Démarrage
-### Environnement de développement (SDK ou Software Development Kit)
+### Environnement de développement (SDK ou ***Software Development Kit***)
 Comme tout programme pour faire une compilation, il lui faut un environnement de
 développement bien paramétré. Le micro-logiciel (firmware) du FZ fait
 office d'environnement. Voici une liste avec le micro-logiciel d'origine ainsi
@@ -82,6 +83,46 @@ sur le Flipper:
 ```bash
 ./fbt launch_app APPSRC=applications/box_mover/
 ```
+ ## Présentation
+Un programme pour le FZ doit être compilé depuis le micro-logiciel. Il sera
+compilé sous la forme d'un paquet qui sera démarrer par le système
+d'exploitation (OS) du FZ. Le dossier **applications_user** du dépôt du
+micro-logiciel est là pour ajouter les codes sources des applications à compiler
+comme FAP. A l'intérieur, il suffit de créer un dossier avec le nom de son
+programme. Il est préférable et par convention le nom est composé de lettres et
+de chiffre et les espaces sont remplacer par un trait souligné (_). C'est aussi 
+l'endroit où il faudra cloner le dépôt d'un tiers afin de créer un FAP.
+
+Pour créer le programme, il faut au moins deux fichiers:
+  * ***Le manifeste***: C'est le fichier **application.fam**. Ce fichier sera utilisé
+lors de la compilation pour intégrer le programme dans la structure du micro-logicel.
+La documentation se trouve [ici](https://github.com/DarkFlippers/unleashed-firmware/blob/dev/documentation/AppManifests.md).
+  * ***box_mover.c***: Le fichier d'entrée contenant le code source du programme.
+
+Pour la compilation, le point d'entrée (***entrypoint***) est définit dans le
+manifeste sous le paramètre **entry_point**. C'est la première fonction qui sera démarrée pour exécuter le
+programme. Par convention, le point d'entrée est nommé comme le nom du dossier
+suivi de **_app** , exemple ici **box_mover_app**.
+
+### Architecture
+Pour simplifier la lecture de se premier programme, tout est condancé dans un
+seul fichier **.c**. Par convention se premier fichier sera nommé comme le nom
+de l'application et aussi le nom du dossier au quel il appartient.
+
+L'allocation des ressources utilisées ainsi que les variables utiles au programme
+sont défini dans une structure. C'est l'état (State) du programme. Par convention, elle est nommée en **Camel
+Case*** avec le nom du programme suivi du mot **State**, l'exemple ici est **BoxMoverState**.
+
+Ensuite le fichier est constitué de 5 fonctions:
+  * **box_mover_app()**: Le point d'entrée.
+  * **box_mover_alloc()**: Cette fonction va allouer les ressources utilisées
+  pour le programme dans la structure contenant l'état du programme.
+  * **box_mover_free()**: Cette fonction va libérer les ressources.
+  * **draw_callback**: Rappel de fonction (Callback) pour mettre à jour l'affichage.
+  * **input_callback**: Rappel de fonction lors de la saisie d'une touche.
+
+Un information plus détaillée sur le fonctionnement du code source est commentée
+directement dans le fichier source.
 
 ## Crédits
 Je me suis inspiré des exemples suivants:
