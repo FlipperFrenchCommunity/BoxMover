@@ -72,7 +72,7 @@ void box_mover_input_callback(InputEvent* input, void* context){
     /* Aquérire le verrou  pour bloquer et modifier l'affichage sans risque */
     furi_check(furi_mutex_acquire(box_mover->model_mutex, 25) == FuriStatusOk);
 
-    /* Met les événements en entrée dans la fil d'attente */
+    /* Met les événements d'entrée dans la fil d'attente */
     furi_message_queue_put(box_mover->event_queue, input, FuriWaitForever);
 
     /* Relacher le verrou */
