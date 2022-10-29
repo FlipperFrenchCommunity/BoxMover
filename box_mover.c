@@ -1,5 +1,5 @@
 /*
- * Project: BoxMover_PoC
+ * Project: BoxMover
  * File: box_mover.c
  * Create by: Rom1 <rom1@canel.ch> - Flipper French Community - https://github.com/FlipperFrenchCommunity
  * Date: 26 octobre 2022
