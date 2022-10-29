@@ -1,12 +1,22 @@
 # Flipper Zero - Box Mover
 ## But
-Apprendre à faire une application pour le FZ (Flipper Zero). C'est le premier
-dépôt et d'autres viendra par la suite.
+Première partie d'une suite de tutoriels pour apprendre à faire une application pour le FZ (Flipper Zero). 
+La liste du tutoriels se trouve [ici](https://github.com/FlipperFrenchCommunity/Awesome-Flipper-French/tree/main/membre_repo#apprendre-%C3%A0-cr%C3%A9er-une-application).
+
+Pour commencer, nous allons mettre en place l'environnement pour développer
+notre application. Après nous allons survoler la compilation du micro-logiciel (*firmware*) et
+d'une application pour le FZ. Pour finir par une rapide compréhension de
+l'architecture du micro-logiciel et de ces applications. Le code source est
+largement commenté pour une meilleure compréhension.
+
+L'application va simplement déplacer un point sur l'affichage par les flèches
+saisies par l'utilisateur pour apprendre à utiliser une boucle d'événement et
+rafraîchir l'affichage.
 
 ## Démarrage
 ### Environnement de développement (SDK ou *Software Development Kit*)
 Comme tout programme pour faire une compilation, il lui faut un environnement de
-développement bien paramétré. Le micro-logiciel (firmware) du FZ fait
+développement bien paramétré. Le micro-logiciel du FZ fait
 office d'environnement. Voici une liste avec le micro-logiciel d'origine ainsi
 que certains de ces forks:
   * [Officiel](https://github.com/flipperdevices/flipperzero-firmware)
