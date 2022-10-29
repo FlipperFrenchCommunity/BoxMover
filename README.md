@@ -129,11 +129,25 @@ suivi de **_app** , exemple ici **box_mover_app**.
 #### Structure générale
 Le micro-logiciel est composé de plusieurs parties.
 
+Un service est une librairie dédié au fonctionnement général du flipper. Les
+applications utilisent les services comme une couche d'abstraction avec furi et
+la couche matériel.
+
 #### Structure du service GUI
-L'interface graphique (*Graphical User Interface*) est gérée par une librairie
-une librairie nommée **GUI** qui se trouve dans les services: **[./applications/services/gui/](https://github.com/DarkFlippers/unleashed-firmware/tree/dev/applications/services/gui)**.
+L'interface graphique (*Graphical User Interface*) est gérée par un service
+nommée **GUI** qui se trouve: **[./applications/services/gui/](https://github.com/DarkFlippers/unleashed-firmware/tree/dev/applications/services/gui)**.
+Le service GUI est découpé en plusieurs modules.
 
 ![Service GUI](./assets/service_gui.png)
+
+Les couches les plus basses représente l'affichage de sortie et les entrées
+utilisateur. L'affichage est géré directement par la librairie [u8g2](https://github.com/DarkFlippers/unleashed-firmware/tree/dev/lib/u8g2)
+et les entrée au travers du service [input](https://github.com/DarkFlippers/unleashed-firmware/tree/dev/applications/services/input).
+
+Le module **canevas** définit les fonctions pour simplifier la création de
+contenu pour l'affichage.
+
+Le module **view_port** gère une vue de l'écran ainsi que ces événements.
 
 ### Architecture de ce programme
 Pour simplifier la lecture de se premier programme, tout est condensé dans un
