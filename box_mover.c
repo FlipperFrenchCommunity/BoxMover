@@ -61,18 +61,26 @@ void box_mover_input_callback(InputEvent* input, void* context){
 /*
  * Fonction pour initialiser le programme. Elle va allouer les différentes ressources 
  * du programme dans la structure (BoxMoverState) contenant son état.
+ *
+ * @return      Structure contenant l'état du programme
  */
 BoxMoverState* box_mover_alloc(){
+    /* Alloue les variables pour la structure d'état et le positionnement du pixel */
     BoxMoverState* state = malloc(sizeof(BoxMoverState));
     state->model = malloc(sizeof(BoxMoverModel));
     state->model->x = 10;
     state->model->y = 10;
 
+    /* Alloue la structure d'état pour view_port */
     state->view_port = view_port_alloc();
+    /* Alloue le verrou (mutex) pour bloquer le fil d'exécution (thread) */
     state->model_mutex = furi_mutex_alloc(FuriMutexTypeNormal);
+    /* Enregistre la ressource d'affichage */
     state->gui = furi_record_open(RECORD_GUI);
+    /* Attache la view_port sur GUI (le gestionnaire d'affichage) */
     gui_add_view_port(state->gui, state->view_port, GuiLayerFullscreen);
 
+    /* Alloue une fil d'attente pour les événements en entrée */
     state->event_queue = furi_message_queue_alloc(8, sizeof(InputEvent));
     
     /* 
@@ -82,13 +90,15 @@ BoxMoverState* box_mover_alloc(){
     view_port_draw_callback_set(state->view_port, box_mover_draw_callback, state);
     view_port_input_callback_set(state->view_port, box_mover_input_callback, state);
     
-    return state;
+    return state; // Retourn la structure d'état
 }
 
 /*
  * Fonction pour terminer proprement le programme. Elle va libérer les ressource
  * avant de terminer le programme.
- */
+ *
+ * @param       Structure contenant l'état du programme
+ */:
 void box_mover_free(BoxMoverState* state){
     view_port_enabled_set(state->view_port, false);
     gui_remove_view_port(state->gui, state->view_port);
