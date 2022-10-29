@@ -114,7 +114,17 @@ manifeste sous le paramètre **entry_point**. C'est la première fonction qui se
 programme. Par convention, le point d'entrée est nommé comme le nom du dossier
 suivi de **_app** , exemple ici **box_mover_app**.
 
-### Architecture
+### Architecture du micro-logiciel
+#### Structure générale
+Le micro-logiciel est composé de plusieurs parties.
+
+#### Structure du service GUI
+L'interface graphique (*Graphical User Interface*) est gérée par une librairie
+une librairie nommée **GUI** qui se trouve dans les services: **[./applications/services/gui/](https://github.com/DarkFlippers/unleashed-firmware/tree/dev/applications/services/gui)**.
+
+![Service GUI](./assets/service_gui.png)
+
+### Architecture de ce programme
 Pour simplifier la lecture de se premier programme, tout est condensé dans un
 seul fichier **.c**. Par convention se premier fichier est nommé comme le nom
 de l'application et aussi comme le nom du dossier au quel il appartient.
