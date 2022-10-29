@@ -41,8 +41,8 @@ typedef struct {
 /*
  * Rappel de fonction pour dessiner l'écran.
  */
-void draw_callback(Canvas* canvas, void* ctx){
-    BoxMoverState* box_mover = ctx;
+void box_mover_draw_callback(Canvas* canvas, void* context){
+    BoxMoverState* box_mover = context;
     furi_check(furi_mutex_acquire(box_mover->model_mutex, 25) == FuriStatusOk);
     canvas_draw_box(canvas, box_mover->model->x, box_mover->model->y, 4, 4);
     furi_mutex_release(box_mover->model_mutex);
@@ -51,8 +51,8 @@ void draw_callback(Canvas* canvas, void* ctx){
 /*
  * Rappel de fonction pour lire les entrée
  */
-void input_callback(InputEvent* input, void* ctx){
-    BoxMoverState* box_mover = ctx;
+void box_mover_input_callback(InputEvent* input, void* context){
+    BoxMoverState* box_mover = context;
     furi_check(furi_mutex_acquire(box_mover->model_mutex, 25) == FuriStatusOk);
     furi_message_queue_put(box_mover->event_queue, input, FuriWaitForever);
     furi_mutex_release(box_mover->model_mutex);
@@ -79,8 +79,8 @@ BoxMoverState* box_mover_alloc(){
      * Définir les fonctions de rappel pour mettre à jour l'affichage ou la
      * saisie des entrées
      */
-    view_port_draw_callback_set(state->view_port, draw_callback, state);
-    view_port_input_callback_set(state->view_port, input_callback, state);
+    view_port_draw_callback_set(state->view_port, box_mover_draw_callback, state);
+    view_port_input_callback_set(state->view_port, box_mover_input_callback, state);
     
     return state;
 }
