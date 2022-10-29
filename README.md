@@ -44,6 +44,8 @@ fichiers:
   * **box_mover.c**: Le code source du programme
 
 #### VS Code
+[Source](https://github.com/DarkFlippers/unleashed-firmware/tree/dev/.vscode)
+
 Configurer l'environnement pour VS Code:
 ```bash
 ./fbt vscode_dist
@@ -52,6 +54,12 @@ Configurer l'environnement pour VS Code:
   INSTALL .vscode/settings.json
   INSTALL .vscode/tasks.json
 ```
+
+VS Code dispose de deux raccourcis clavier le FZ
+| Raccourcis clavier | Fonction                                                               |
+|--------------------|------------------------------------------------------------------------|
+| Ctrl + Shift + b   | Ouvre un menu avec divers choix pour la compilation ou le téléversement|
+| Ctrl + Shift + d   | Attache une sessions pour le débogage                                  |
 
 ### Compilation
 La compilation est simplifiée grâce à l'outil en ligne de commandes **fbt**
