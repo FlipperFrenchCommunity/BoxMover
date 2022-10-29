@@ -62,6 +62,9 @@ VS Code dispose de deux raccourcis clavier le FZ
 | Ctrl + Shift + d   | Attache une sessions pour le débogage                                  |
 
 ### Compilation
+Source: [How to build](https://github.com/DarkFlippers/unleashed-firmware/blob/dev/documentation/HowToBuild.md),
+[Flipper Built Tool](https://github.com/DarkFlippers/unleashed-firmware/blob/dev/documentation/fbt.md)
+
 La compilation est simplifiée grâce à l'outil en ligne de commandes **fbt**
 (Flipper Build Tool). Il est écrit en Python3 et utilise le module Scons
 
