@@ -129,6 +129,8 @@ suivi de **_app** , exemple ici **box_mover_app**.
 #### Structure générale
 Le micro-logiciel est composé de plusieurs parties.
 
+![Architecture software](./assets/architecture_software.png)
+
 Un service est une librairie dédié au fonctionnement général du flipper. Les
 applications utilisent les services comme une couche d'abstraction avec furi et
 la couche matériel.
