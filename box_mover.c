@@ -45,6 +45,10 @@ typedef struct {
  * @param       Context contenant la variable d'état
  */
 void box_mover_draw_callback(Canvas* canvas, void* context){
+    /* Contrôle les entrée et déclenche une erreur si elle est NULL */
+    furi_assert(canvas);
+    furi_assert(context);
+
     /* Récupère la variable d'état du programme */
     BoxMoverState* box_mover = context;
 
@@ -66,6 +70,10 @@ void box_mover_draw_callback(Canvas* canvas, void* context){
  * @param       Context contenant la variable d'état
  */
 void box_mover_input_callback(InputEvent* input, void* context){
+    /* Contrôle les entrée et déclenche une erreur si elle est NULL */
+    furi_assert(input);
+    furi_assert(context);
+
     /* Récupère la variable d'état du programme */
     BoxMoverState* box_mover = context;
 
@@ -119,6 +127,8 @@ BoxMoverState* box_mover_alloc(){
  * @param       Structure contenant l'état du programme
  */
 void box_mover_free(BoxMoverState* state){
+    furi_assert(state);
+
     view_port_enabled_set(state->view_port, false);
     gui_remove_view_port(state->gui, state->view_port);
     furi_record_close(RECORD_GUI);
