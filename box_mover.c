@@ -33,9 +33,9 @@ typedef struct {
 typedef struct {
     BoxMoverModel* model;          // Positionnement du pixel
     Gui* gui;                      // Gestion de l'affichage de l'écran (GUI)
-    ViewPort* view_port;           // Etat de la vue de l'écran.
+    ViewPort* view_port;           // État de la vue de l'écran.
     FuriMessageQueue* event_queue; // Fil d'attente (Queue) pour passer des message (événements en entrée)
-    FuriMutex* model_mutex;        // Verrou (Mutex) pour verouiller le fil d'exécution (Thread)
+    FuriMutex* model_mutex;        // Verrou (Mutex) pour verrouiller le fil d'exécution (Thread)
 } BoxMoverState;
 
 /**
@@ -48,34 +48,34 @@ void box_mover_draw_callback(Canvas* canvas, void* context){
     /* Récupère la variable d'état du programme */
     BoxMoverState* box_mover = context;
 
-    /* Aquérire le verrou  pour bloquer et modifier l'affichage sans risquei de
+    /* Acquérir le verrou  pour bloquer et modifier l'affichage sans risque de
      * modification de box_mover->model */
     furi_check(furi_mutex_acquire(box_mover->model_mutex, 25) == FuriStatusOk);
 
     /* Modifier le canvas d'affichage */
     canvas_draw_box(canvas, box_mover->model->x, box_mover->model->y, 4, 4);
 
-    /* Relacher le verrou */
+    /* Relâcher le verrou */
     furi_mutex_release(box_mover->model_mutex);
 }
 
 /**
  * Rappel de fonction pour lire les entrée
  *
- * @param       Évenement en entrées
+ * @param       Événement en entrées
  * @param       Context contenant la variable d'état
  */
 void box_mover_input_callback(InputEvent* input, void* context){
     /* Récupère la variable d'état du programme */
     BoxMoverState* box_mover = context;
 
-    /* Aquérire le verrou  pour bloquer et modifier l'affichage sans risque */
+    /* Acquérir le verrou  pour bloquer et modifier l'affichage sans risque */
     furi_check(furi_mutex_acquire(box_mover->model_mutex, 25) == FuriStatusOk);
 
     /* Met les événements d'entrée dans la fil d'attente */
     furi_message_queue_put(box_mover->event_queue, input, FuriWaitForever);
 
-    /* Relacher le verrou */
+    /* Relâcher le verrou */
     furi_mutex_release(box_mover->model_mutex);
 }
 
@@ -109,7 +109,7 @@ BoxMoverState* box_mover_alloc(){
     view_port_draw_callback_set(state->view_port, box_mover_draw_callback, state);
     view_port_input_callback_set(state->view_port, box_mover_input_callback, state);
     
-    return state; // Retourn la structure d'état
+    return state; // Retour la structure d'état
 }
 
 /**
@@ -184,7 +184,7 @@ int32_t box_mover_app(void* p){
                 }
             }
         }
-        furi_mutex_release(box_mover->model_mutex); // Relache le verrou
+        furi_mutex_release(box_mover->model_mutex); // Relâche le verrou
         view_port_update(box_mover->view_port); // Met à jour l'affichage 
     }
 
