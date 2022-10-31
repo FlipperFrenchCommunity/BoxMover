@@ -33,7 +33,7 @@ git clone --recursive https://github.com/DarkFlippers/unleashed-firmware
 [Ici](https://github.com/DarkFlippers/unleashed-firmware#project-structure) se
 trouve un aperçu non exhaustif des dossiers et de leurs utilisations. Les
 développements personnels comme ici se trouve dans le dossier
-**application_user**. Nous allons cloner se dépôt dans se dernier:
+**application_user**. Nous allons cloner se dépôt dans ce dernier:
 ```bash
 git clone https://github.com/FlipperFrenchCommunity/BoxMover box_mover
 ```
@@ -81,7 +81,7 @@ micro-logiciel dans le Flipper.
 #### Compiler et téléverser
 Il est possible de directement compiler le micro-logiciel et de le téléverser
 directement dans le dossier de mise à jour du FZ. Après, le FZ se met
-en mode DFU pour faire la mise à jour avec le nouveau micro-logiciel fraichement
+en mode DFU pour faire la mise à jour avec le nouveau micro-logiciel fraîchement
 compilé:
 ```bash
 ./fbt COMPACT=1 DEBUG=0 FORCE=1 flash_usb_full
@@ -116,7 +116,7 @@ l'endroit où il faudra cloner le dépôt d'un tiers afin de créer un FAP.
 
 Pour créer le programme, il faut au moins deux fichiers:
   * ***Le manifeste***: C'est le fichier **application.fam**. Ce fichier sera utilisé
-lors de la compilation pour intégrer le programme dans la structure du micro-logicel.
+lors de la compilation pour intégrer le programme dans la structure du micro-logiciel.
 La documentation se trouve [ici](https://github.com/DarkFlippers/unleashed-firmware/blob/dev/documentation/AppManifests.md).
   * ***box_mover.c***: Le fichier d'entrée contenant le code source du programme.
 
@@ -127,7 +127,7 @@ suivi de **_app** , exemple ici **box_mover_app**.
 
 ### Architecture du micro-logiciel
 #### Structure générale
-Le micro-logiciel est composé de plusieurs parties.
+Le micro-logiciel est composé de plusieurs parties. L'image suivante à été trouvée [ici](https://flipper.atmanos.com/docs/overview/intro/).
 
 ![Architecture software](./assets/architecture_software.png)
 
