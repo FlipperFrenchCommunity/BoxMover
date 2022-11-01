@@ -14,9 +14,14 @@
  * Importation des librairies
  */
 #include <furi.h>
+#include <core/log.h>
 #include <gui/gui.h>
 #include <input/input.h>
 #include <stdlib.h>
+#include <notification/notification_messages.h>
+
+
+#define TAG "BoxMover" // Définit le label affiché pour le journal de messages
 
 
 /*
@@ -45,6 +50,9 @@ typedef struct {
  * @param       Context contenant la variable d'état
  */
 void box_mover_draw_callback(Canvas* canvas, void* context){
+    /* Transmet un message de diagnostique au journal des erreurs */
+    FURI_LOG_T(TAG, "exec draw_callback");
+
     /* Contrôle les entrée et déclenche une erreur si elle est NULL */
     furi_assert(canvas);
     furi_assert(context);
@@ -70,6 +78,9 @@ void box_mover_draw_callback(Canvas* canvas, void* context){
  * @param       Context contenant la variable d'état
  */
 void box_mover_input_callback(InputEvent* input, void* context){
+    /* Transmet un message de diagnostique au journal des erreurs */
+    FURI_LOG_T(TAG, "exec input_callback");
+
     /* Contrôle les entrée et déclenche une erreur si elle est NULL */
     furi_assert(input);
     furi_assert(context);
@@ -94,6 +105,9 @@ void box_mover_input_callback(InputEvent* input, void* context){
  * @return      Structure contenant l'état du programme
  */
 BoxMoverState* box_mover_alloc(){
+    /* Transmet un message de diagnostique au journal des erreurs */
+    FURI_LOG_I(TAG, "Allocation des ressource");
+
     /* Alloue les variables pour la structure d'état et le positionnement du pixel */
     BoxMoverState* state = malloc(sizeof(BoxMoverState));
     state->model = malloc(sizeof(BoxMoverModel));
@@ -127,6 +141,9 @@ BoxMoverState* box_mover_alloc(){
  * @param       Structure contenant l'état du programme
  */
 void box_mover_free(BoxMoverState* state){
+    /* Transmet un message de diagnostique au journal des erreurs */
+    FURI_LOG_I(TAG, "Libère les ressources");
+
     furi_assert(state);
 
     view_port_enabled_set(state->view_port, false);
@@ -147,6 +164,8 @@ void box_mover_free(BoxMoverState* state){
 int32_t box_mover_app(void* p){
     UNUSED(p); // Bloque les erreurs de compilation d'une variable non-initialisée
 
+    FURI_LOG_I(TAG, "Démarrage de %s", TAG);
+
     BoxMoverState* box_mover = box_mover_alloc(); // Créer l'état de notre programme
 
 
@@ -165,30 +184,39 @@ int32_t box_mover_app(void* p){
 
         /* Si il y a un événement faire */
         if(event_status == FuriStatusOk) {
+            FURI_LOG_D(TAG, "Un événement est arrivé");
             /* Si une entrée est pressée faire */
             if(event.type == InputTypePress) {
                 /* Aiguille en fonction des divers entrées pressées */
                 switch(event.key) {
                     /* Bouton du haut */
                     case InputKeyUp:
+                        FURI_LOG_I(TAG, "Bouton du haut pressé");
                         box_mover->model->y -= 2; // Déplace le pixel sur le haut
                         break;
                     /* Bouton du bas */
                     case InputKeyDown:
+                        FURI_LOG_I(TAG, "Bouton du bas pressé");
                         box_mover->model->y += 2; // Déplace le pixel sur le bas
                         break;
                     /* Bouton de gauche */
                     case InputKeyLeft:
+                        FURI_LOG_I(TAG, "Bouton du gauche pressé");
                         box_mover->model->x -= 2; // Déplace le pixel sur la gauche
                         break;
                     /* Bouton de droite */
                     case InputKeyRight:
+                        FURI_LOG_I(TAG, "Bouton du droite pressé");
                         box_mover->model->x += 2; // Déplace le pixel sur la droite
                         break;
 
                     /* Bouton du centre et de retour en arrière */
                     case InputKeyOk:
+                        FURI_LOG_I(TAG, "Bouton du centre pressé");
+                        processing = false; // Stop la boucle
+                        break;
                     case InputKeyBack:
+                        FURI_LOG_I(TAG, "Bouton de retour pressé");
                         processing = false; // Stop la boucle
                         break;
                 }
@@ -196,8 +224,11 @@ int32_t box_mover_app(void* p){
         }
         furi_mutex_release(box_mover->model_mutex); // Relâche le verrou
         view_port_update(box_mover->view_port); // Met à jour l'affichage 
+        FURI_LOG_T(TAG, "Mise à jour de l'affiche");
     }
 
     box_mover_free(box_mover); // Libère l'état de notre programme
+
+    FURI_LOG_I(TAG, "Arrêt de %s", TAG);
     return 0;
 }

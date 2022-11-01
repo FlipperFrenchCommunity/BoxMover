@@ -92,10 +92,10 @@ Configurer l'environnement pour VS Code:
 VS Code dispose de deux raccourcis clavier pour le FZ
 
 
-| Raccourcis clavier | Fonction                                                                |
-| ------------------ | ----------------------------------------------------------------------- |
+| Raccourcis clavier | Fonction                                                                  |
+| -------------------- | --------------------------------------------------------------------------- |
 | Ctrl + Shift + b   | Ouvre un menu avec divers choix pour la compilation ou le téléversement |
-| Ctrl + Shift + d   | Attache une sessions pour le débogage                                   |
+| Ctrl + Shift + d   | Attache une sessions pour le débogage                                    |
 
 ### Compilation
 
@@ -185,6 +185,58 @@ Le micro-logiciel est composé de plusieurs parties. L'image suivante à été t
 Un service est une librairie dédié au fonctionnement général du flipper. Les
 applications utilisent les services comme une couche d'abstraction avec furi et
 la couche matériel.
+
+#### Journal (log)
+
+Les journaux (log) sont d'une aide précieuse car l permette d'enregistrer et de diffuser des messages aux développeurs ou aux utilisateurs. Ils peuvent mettre des message pour donner une raison au plantage de l'application. Les développeurs peuvent aussi des informations ou lires certaines variables dans le programmes. Donc aussi très utils pour faire du diagnostique.
+
+Dans le [**coeur de Furi**](https://github.com/DarkFlippers/unleashed-firmware/blob/dev/furi/core/log.h), le préprocesseur fournit des constantes pour simplifier la diffusion de message en fonction d'un niveau d'erreur donnée.
+
+Voici les différents niveaux triés par importance. En fonction d'un niveau, il n'y a que ceux qui sont supérieurs ou égals au niveau qui sont diffusés:
+
+1. **FURI_LOG_E()**: Erreur (Error).
+2. **FURI_LOG_W()**: Attention (Warning).
+3. **FURI_LOG_I()**: Information.
+4. **FURI_LOG_D()**: Diagnostique (Debug).
+5. **FURI_LOG_T()**: Trace.
+
+Maintenant, il faut savoir comment lire les messages. La solution la plus simple c'est de se connecter avec un terminal en série (UART via l'USB) sur le FZ. Sous GNU/Linux, divers programmes permettent de le faire comme: **minicom**, **picocom**, **screen** ou **tio**.
+
+```bash
+tio /dev/ttyACM0
+
+
+              _.-------.._                    -,
+          .-"```"--..,,_/ /`-,               -,  \ 
+       .:"          /:/  /'\  \     ,_...,  `. |  |
+      /       ,----/:/  /`\ _\~`_-"`     _;
+     '      / /`"""'\ \ \.~`_-'      ,-"'/ 
+    |      | |  0    | | .-'      ,/`  /
+   |    ,..\ \     ,.-"`       ,/`    /
+  ;    :    `/`""\`           ,/--==,/-----,
+  |    `-...|        -.___-Z:_______J...---;
+  :         `                           _-'
+ _L_  _     ___  ___  ___  ___  ____--"`___  _     ___
+| __|| |   |_ _|| _ \| _ \| __|| _ \   / __|| |   |_ _|
+| _| | |__  | | |  _/|  _/| _| |   /  | (__ | |__  | |
+|_|  |____||___||_|  |_|  |___||_|_\   \___||____||___|
+
+Welcome to Flipper Zero Command Line Interface!
+Read Manual https://docs.flipperzero.one
+
+Firmware version: my unknown (7f55d41d built on 01-11-2022)
+
+>:
+```
+
+Une interface à ligne de commande s'affiche et l'utilisateur peut intéragir avec son FZ directement avec des commandes. Le but n'est pas de détailler cette interface, une aide sommaire est disponnible avec la commande **help** ou **?**.
+
+La commande **log** va afficher tout les message de sortie sur le terminal.
+
+```bash
+>: log
+Press CTRL+C to stop...
+```
 
 #### Structure du service GUI
 
