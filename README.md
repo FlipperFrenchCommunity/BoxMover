@@ -200,6 +200,13 @@ Voici les différents niveaux triés par importance. En fonction d'un niveau, il
 4. **FURI_LOG_D()**: Diagnostique (Debug).
 5. **FURI_LOG_T()**: Trace.
 
+
+Il ne faut pas oublier de sélectionner le niveau d'erreur à afficher dans le menu de paramètre du micro-logiciel:
+
+```
+Settings > System > Log Level
+```
+
 Maintenant, il faut savoir comment lire les messages. La solution la plus simple c'est de se connecter avec un terminal en série (UART via l'USB) sur le FZ. Sous GNU/Linux, divers programmes permettent de le faire comme: **minicom**, **picocom**, **screen** ou **tio**.
 
 ```bash
@@ -233,9 +240,12 @@ Une interface à ligne de commande s'affiche et l'utilisateur peut intéragir av
 
 La commande **log** va afficher tout les message de sortie sur le terminal.
 
-```bash
+```
 >: log
+
 Press CTRL+C to stop...
+698134 [I][BoxMover] Démarre le programme
+698136 [I][BoxMover] Allocation des ressource
 ```
 
 #### Structure du service GUI
