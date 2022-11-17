@@ -215,6 +215,9 @@ int32_t box_mover_app(void* p){
                         FURI_LOG_I(TAG, "Bouton du centre pressé");
                         processing = false; // Stop la boucle
                         break;
+                    case InputKeyMAX:
+                        FURI_LOG_I(TAG, "InputKeyMax, c'est quoi???");
+                        break;
                     case InputKeyBack:
                         FURI_LOG_I(TAG, "Bouton de retour pressé");
                         processing = false; // Stop la boucle
