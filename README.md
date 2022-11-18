@@ -207,10 +207,14 @@ Il ne faut pas oublier de sélectionner le niveau d'erreur à afficher dans le m
 Settings > System > Log Level
 ```
 
-Maintenant, il faut savoir comment lire les messages. La solution la plus simple c'est de se connecter avec un terminal en série (UART via l'USB) sur le FZ. Sous GNU/Linux, divers programmes permettent de le faire comme: **minicom**, **picocom**, **screen** ou **tio**.
-
+Maintenant, il faut savoir comment lire les messages. La solution la plus simple
+est d'utiliser l'outil **FBT** avec la sous commande **cli**. Elle va ouvrir une
+connexion avec un terminal en série (UART via l'USB) sur le FZ. Sous GNU/Linux, divers programmes permettent de le faire comme: **minicom**, **picocom**, **screen** ou **tio**.
 ```bash
-tio /dev/ttyACM0
+./fbt cli
+python3 ./scripts/serial_cli.py
+--- Miniterm on /dev/ttyACM3  230400,8,N,1 ------ Quit: Ctrl+] | Menu: Ctrl+T |
+Help: Ctrl+T followed by Ctrl+H ---
 
 
               _.-------.._                    -,
